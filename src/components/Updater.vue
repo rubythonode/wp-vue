@@ -55,9 +55,14 @@ export default {
         eventLabel: `Update to ${this.updatedEndpoint}`
       });
 
-      bus.updateEndpoint(this.updatedEndpoint);
+      this.$store.commit('requestCache/wipe');
+      this.$store.commit('updateEndpoint', this.updatedEndpoint);
+
       this.$router.push('/posts');
+
       this.$emit('close');
+      bus.$emit('clearError');
+      bus.$emit('bumpViewKey', 'Updating content...');
     }
   }
 }

@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import Axios from 'axios';
 import bus from '../bus';
 import ajax from '../mixins/ajax';
 import Card from '../components/Card';
@@ -62,7 +61,7 @@ export default {
 
       try {
         response = await this.get(
-          `${bus.REST_ENDPOINT}/posts?per_page=${POSTS_PER_PAGE}&page=${this.page}`
+          `/posts?per_page=${POSTS_PER_PAGE}&page=${this.page}`
         );
         this.totalPages = response.headers['x-wp-totalpages'];
       } catch (error) {
@@ -84,7 +83,7 @@ export default {
 
             try {
               response = await this.get(
-                `${bus.REST_ENDPOINT}/media/${post.featured_media}`
+                `/media/${post.featured_media}`
               );
               post.featured_image = response.data.media_details.sizes['medium'].source_url;
             } catch (error) {

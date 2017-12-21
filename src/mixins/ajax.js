@@ -3,21 +3,25 @@ import Axios from 'axios';
 export default {
 
   methods: {
-    get: function (endpoint) {
+    get: function (path) {
       return new Promise(async (resolve, reject) => {
 
         //-- If this data is already cached, just use that.
-        if(this.$store.state.requestCache[endpoint] !== undefined) {
-          resolve(this.$store.state.requestCache[endpoint]);
+        if(this.$store.state.requestCache[path] !== undefined) {
+          console.log('restoring');
+          resolve(this.$store.state.requestCache[path]);
         }
 
-        //-- Otherwise, retrieve it from the specified endpoint.
+        //-- Otherwise, retrieve it from the specified path.
         try {
-          let data = await Axios.get(endpoint);
+          let data = await Axios.get(this.$store.state.endpoint + path);
+
           this.$store.commit('requestCache/save', {
-            endpoint,
+            path,
             data
           });
+
+          console.log(this.$store.requestCache.state);
 
           resolve(data);
         } catch (error) {

@@ -73,7 +73,7 @@
         this.error = errorMessage;
       });
 
-      bus.$on('clearErrors', () => {
+      bus.$on('clearError', () => {
         this.error = '';
       });
     },
