@@ -41,7 +41,7 @@
     },
 
     created: async function () {
-      this.post = await this.getPost();
+      this.post = await this.setPost();
       this.title = this.post.title.rendered;
       this.content = this.post.content.rendered;
       this.featured_image = await this.getFeaturedImage(this.post.featured_media);
@@ -50,22 +50,20 @@
     },
 
     methods: {
-      getPost: async function () {
-        let response;
+      setPost: function () {
+        return new Promise(async (resolve, reject) => {
+          let response;
 
-        try {
-          response = await this.get(`/posts?slug=${this.$route.params.slug}`);
-          this.totalPages = response.headers['x-wp-totalpages'];
-        } catch (error) {
-          bus.$emit('toggleLoading', 'There was an error with the REST request.');
-          return null;
-        }
+          try {
+            // response = await this.get(`/posts?slug=${this.$route.params.slug}`);
+            response = await this.getPost(this.$route.params.slug);
+          } catch (error) {
+            // this.$router.push({name: 'four-o-four'});
+            reject();
+          }
 
-        if(response.data[0] === undefined) {
-          this.$router.push({name: 'four-o-four'});
-        }
-
-        return response.data[0];
+          // resolve(response.data[0]);
+        });
       },
 
       getFeaturedImage: async function (id) {

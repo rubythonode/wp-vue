@@ -72,6 +72,10 @@ export default {
 
       this.posts = await this.getFeaturedImages(response.data);
 
+      this.$store.dispatch('requestCache/savePosts', this.posts);
+
+      console.log(this.$store.state.requestCache.posts);
+
       bus.$emit('toggleLoading', false);
     },
 

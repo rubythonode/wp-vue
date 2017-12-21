@@ -12,7 +12,12 @@
     </span>
     <h3>
       <router-link
-        :to="{ name: 'post', params: { slug: post.slug } }"
+        :to="{
+          name: 'post',
+          params: {
+            slug: post.slug
+          }
+        }"
         v-html="post.title.rendered">
       </router-link>
     </h3>

@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import bus from '../bus';
-
 export default {
   name: 'TopBar',
 
@@ -22,7 +20,7 @@ export default {
 
   computed: {
     splitEndpoint: function () {
-      return bus.REST_ENDPOINT.split('/')
+      return this.$store.state.endpoint.split('/')
     },
 
     sourceURL: function () {

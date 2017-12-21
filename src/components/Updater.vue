@@ -32,14 +32,8 @@ export default {
     }
   },
 
-  computed: {
-    endpoint: function () {
-      return bus.REST_ENDPOINT;
-    }
-  },
-
   created: function () {
-    this.updatedEndpoint = this.endpoint;
+    this.updatedEndpoint = this.$store.state.endpoint;
   },
 
   methods: {
