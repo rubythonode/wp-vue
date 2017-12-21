@@ -27,13 +27,16 @@
 </template>
 
 <script>
-import bus from '../bus';
 import Axios from 'axios';
+import bus from '../bus';
+import ajax from '../mixins/ajax';
 import Card from '../components/Card';
 import Pagination from '../components/Pagination';
 
 export default {
   name: 'Feed',
+
+  mixins: [ajax],
 
   data () {
     return {
@@ -58,7 +61,9 @@ export default {
       let response;
 
       try {
-        response = await Axios.get(`${bus.REST_ENDPOINT}/posts?per_page=${POSTS_PER_PAGE}&page=${this.page}`);
+        response = await this.get(
+          `${bus.REST_ENDPOINT}/posts?per_page=${POSTS_PER_PAGE}&page=${this.page}`
+        );
         this.totalPages = response.headers['x-wp-totalpages'];
       } catch (error) {
         bus.$emit('showUpdater', 'Are you sure that\'s a valid endpoint?');
@@ -78,7 +83,9 @@ export default {
             let response;
 
             try {
-              response = await Axios.get(`${bus.REST_ENDPOINT}/media/${post.featured_media}`);
+              response = await this.get(
+                `${bus.REST_ENDPOINT}/media/${post.featured_media}`
+              );
               post.featured_image = response.data.media_details.sizes['medium'].source_url;
             } catch (error) {
               post.featured_image = null;
