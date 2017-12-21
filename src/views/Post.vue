@@ -42,8 +42,8 @@
 
     created: async function () {
       this.post = await this.getPost();
-      this.title = this.post['title'].rendered;
-      this.content = this.post['content'].rendered;
+      this.title = this.post.title.rendered;
+      this.content = this.post.content.rendered;
       this.featured_image = await this.getFeaturedImage(this.post.featured_media);
 
       bus.$emit('toggleLoading', false);
@@ -54,9 +54,7 @@
         let response;
 
         try {
-          response = await this.get(
-            `/posts?slug=${this.$route.params.slug}`
-          );
+          response = await this.get(`/posts?slug=${this.$route.params.slug}`);
           this.totalPages = response.headers['x-wp-totalpages'];
         } catch (error) {
           bus.$emit('toggleLoading', 'There was an error with the REST request.');
@@ -74,7 +72,7 @@
         let response;
 
         try {
-          response = await this.get(`${bus.REST_ENDPOINT}/media/${id}`);
+          response = await this.get(`/media/${id}`);
         } catch (error) {
           return null;
         }

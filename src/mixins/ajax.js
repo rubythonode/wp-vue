@@ -8,7 +8,6 @@ export default {
 
         //-- If this data is already cached, just use that.
         if(this.$store.state.requestCache[path] !== undefined) {
-          console.log('restoring');
           resolve(this.$store.state.requestCache[path]);
         }
 
@@ -20,8 +19,6 @@ export default {
             path,
             data
           });
-
-          console.log(this.$store.requestCache.state);
 
           resolve(data);
         } catch (error) {

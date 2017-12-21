@@ -5,7 +5,7 @@ export default {
 
   mutations: {
     save (state, payload) {
-      state[payload.endpoint] = payload.data;
+      state[payload.path] = payload.data;
     },
 
     wipe (state) {
