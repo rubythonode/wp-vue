@@ -23,6 +23,10 @@ export default {
     getFormattedDate: function (time) {
       let date = new Date(time);
       return `${this.months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+    },
+
+    goBack: function() {
+      this.$router.go(-1);
     }
   }
 }

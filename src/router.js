@@ -30,8 +30,12 @@ const routes = [
   },
   {
     name: 'four-o-four',
-    path: '*',
+    path: '/404',
     component: FourOFour
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ];
 

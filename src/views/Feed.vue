@@ -72,11 +72,25 @@ export default {
 
       this.posts = await this.getFeaturedImages(response.data);
 
-      this.$store.dispatch('requestCache/savePosts', this.posts);
-
-      console.log(this.$store.state.requestCache.posts);
+      this.savePosts();
 
       bus.$emit('toggleLoading', false);
+    },
+
+    savePosts: async function () {
+
+      try {
+        var response = await this.get(
+          `/posts?per_page=${POSTS_PER_PAGE}&page=${this.page + 1}`
+        );
+      } catch (error) {
+        console.error(error);
+        return;
+      }
+
+      let nextPosts = await this.getFeaturedImages(response.data);
+
+      this.$store.dispatch('cache/savePosts', nextPosts);
     },
 
     getFeaturedImages: function (posts) {

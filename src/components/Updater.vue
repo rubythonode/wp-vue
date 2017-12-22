@@ -49,7 +49,7 @@ export default {
         eventLabel: `Update to ${this.updatedEndpoint}`
       });
 
-      this.$store.commit('requestCache/wipe');
+      this.$store.commit('cache/wipe');
       this.$store.commit('updateEndpoint', this.updatedEndpoint);
 
       this.$router.push('/posts');

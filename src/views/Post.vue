@@ -3,7 +3,7 @@
 
     <article>
 
-      <router-link :to="{path: '/'}">Back to All Posts</router-link>
+      <a @click="goBack">Back to All Posts</a>
 
       <header>
         <img
@@ -55,14 +55,13 @@
           let response;
 
           try {
-            // response = await this.get(`/posts?slug=${this.$route.params.slug}`);
             response = await this.getPost(this.$route.params.slug);
           } catch (error) {
-            // this.$router.push({name: 'four-o-four'});
-            reject();
+            this.$router.push({name: 'four-o-four'});
+            return;
           }
 
-          // resolve(response.data[0]);
+          resolve(response);
         });
       },
 
